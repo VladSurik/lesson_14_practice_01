@@ -12,33 +12,33 @@ public class TimeSpan {
         this.minutes = minutes;
     }
 
-    public void add(int hours, int minutes) {
-        this.hours += hours;
-        int tmpMinutes = this.minutes += minutes;
+    public void add(TimeSpan timeSpan) {
+          hours += timeSpan.hours;
+        int tmpMinutes = minutes += timeSpan.minutes;
         if (tmpMinutes == 60) {
-            this.hours += 1;
-            this.minutes = 0;
+            hours += 1;
+            minutes = 0;
         } else if (tmpMinutes > 60) {
-            this.hours += 1;
-            this.minutes = tmpMinutes - 60;
+            hours += 1;
+            minutes = tmpMinutes - 60;
         } else {
-            this.minutes = tmpMinutes;
+            minutes = tmpMinutes;
         }
     }
 
-    public void sub(int hours, int minutes) {
-        int tmpMinutes = this.hours * 60 + this.minutes;
-        int subMinutes = hours * 60 + minutes;
+    public void sub(TimeSpan timeSpan) {
+        int tmpMinutes = hours * 60 + minutes;
+        int subMinutes = timeSpan.hours * 60 + timeSpan.minutes;
         int diffMinutes = tmpMinutes - subMinutes;
-        this.hours = diffMinutes / 60;
-        this.minutes = Math.max(diffMinutes - (this.hours * 60), 0);
+        hours = (int) diffMinutes / 60;
+        minutes = Math.max(diffMinutes - (hours * 60), 0);
     }
 
     public void mult(double times) {
-        int tmpMinutes = this.hours * 60 + this.minutes;
-        int diffMinutes =  (int) (tmpMinutes / times);
-        this.hours = diffMinutes / 60;
-        this.minutes = Math.max(diffMinutes - (this.hours * 60), 0);
+        int tmpMinutes = hours * 60 + minutes;
+        int diffMinutes = (int) (tmpMinutes * times);
+        hours =   diffMinutes / 60;
+        minutes =  Math.max(diffMinutes - (hours * 60), 0);
     }
 
     @Override
